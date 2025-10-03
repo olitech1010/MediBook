@@ -1,17 +1,30 @@
-@import url('font-inter.css');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 :root {
   --primarycolor: #0A76D8;
   --primarycolorhover: #006dd3;
   --btnice:#D8EBFA;
   --btnnicetext:#1b62b3;
+  --ghana-red: #CE1126;
+  --ghana-yellow: #FCD116;
+  --ghana-green: #006B3C;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --info-color: #17a2b8;
+  --light-bg: #f8f9fa;
+  --dark-text: #2c3e50;
+  --border-color: #e9ecef;
+  --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
+  --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
+  --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
 }
 
 body{
     margin: 0;
     padding: 0;
     border-spacing: 0;
-    font-family: 'Inter', sans-serif;
-    
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
 }
 
 *, ::after, ::before{
@@ -86,7 +99,7 @@ body{
 }
 
 .input-text::placeholder{
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 
@@ -101,7 +114,7 @@ body{
     letter-spacing: 0.5px;
     transition: all 0.3s;
     border-radius: 5px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 
@@ -109,7 +122,7 @@ body{
     background-color: var(--primarycolorhover);
     box-shadow: none;
     transition: all 0.5s;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 
 }
 
@@ -163,7 +176,7 @@ body{
     border-radius: 5px;
     background-color: #f0f0f073;
     border: 1px solid rgba(57,108,240,0.1) ;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 

@@ -1,81 +1,151 @@
+# MediBook Ghana - Healthcare Appointment System
 
-# Open Source Doctor Appointment Booking System using PHP
-![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(1).png)
+**MediBook Ghana** is a comprehensive healthcare appointment booking system designed specifically for Ghana's healthcare landscape. Built with PHP, HTML, and CSS, this platform connects patients with qualified doctors across Ghana's major cities including Accra, Kumasi, Tamale, and Cape Coast.
 
-[Edoc](https://github.com/HashenUdara/edoc-doctor-appointment-system/) is a Simple web project that is made for e-channeling Using PHP,HTML & CSS.
-This initiative facilitates online appointment requests for clients or patients of medical establishments, including clinics and hospitals. This project can also help doctors to manage their appointment with their patients. This doctor's appointment system will organize the schedules of each patient's appointment, which will be submitted as a request to the doctor they have selected. The system comprises three key roles: administrator, doctor, and patient. The system admin will populate the list of the doctors with their specialties and along with the doctor's details and system credentials. The patients can browse the doctor's appointment system website to find a doctor that has the specialty of their needs. Patients can review the doctor's weekly schedule, enabling them to select a suitable day and time for their appointment. Subsequently, they can submit their appointment request. After that, the doctors can view all their appointments and the appointment request of the patients for their availability.
-
+This system facilitates seamless online appointment booking for patients seeking healthcare services from verified medical professionals. The platform helps doctors manage their practice efficiently while providing patients with easy access to quality healthcare services.
 
 ## Features
 
-### Admin
-  
-- Admin can add doctors, edit doctors, delete doctors    
-- Schedule new doctors sessions, remove sessions   
-- View patients details    
-- View booking of patients    
-    
-    
- 
- 
-### Doctors
+### Admin Dashboard
+- Manage doctors across Ghana's healthcare network
+- Add, edit, and delete doctor profiles
+- Schedule and manage doctor sessions
+- View patient details and appointment statistics
+- Monitor system-wide appointment bookings
 
-- View their Appointment
-- View their scheduled sessions
-- View details of patients
-- Delete account    
-- Eedit account settings
-    
+### Doctor Portal
+- View and manage patient appointments
+- Schedule availability and sessions
+- Access patient medical information
+- Manage account settings and profile
+- Track appointment history
 
-    
-### Patiens(Clients)
-  
-  - Make appointment online
-  - Create accounts themslves
-  - View their old booking
-  - Delete account
-  - Edit account settings    
+### Patient Portal
+- Browse qualified doctors by specialty and location
+- Book appointments online with ease
+- View appointment history and upcoming bookings
+- Manage personal health records
+- Access healthcare services across Ghana
 
-    
-| Admin Dashboard | Doctor Dashboard | Patient Dashboard |
-| -------| -------| -------|
-| Email: `admin@edoc.com` | Email: `doctor@edoc.com` |   Email: `patient@edoc.com` | 
-| Password: `123` |  Password: `123` |  Password: `123` |
-| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(3).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(9).png) |    ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(6).png)  |
+## Technology Stack
 
- 
-  
------------------------------------------------
+- **Backend**: PHP 7.3+
+- **Database**: MySQL/MariaDB
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Server**: Apache (via PHP built-in server)
+- **Styling**: Custom CSS with Ghana-inspired color scheme
 
+## Installation & Setup
 
-# GET STARTED
+### Prerequisites
+- PHP 7.3 or higher
+- MySQL/MariaDB database
+- Web server (Apache/Nginx) or PHP built-in server
 
-1. Open your XAMPP Control Panel and start Apache and MySQL.
-2. Extract the downloaded source code zip file.
-3. Copy the extracted source code folder and paste it into the XAMPP's "htdocs" directory.
-4. Browse the PHPMyAdmin in a browser. i.e. http://localhost/phpmyadmin
-5. Create a new database naming `edoc`.
-6. Import the provided SQL file. The file is known as DATABASE edoc.sql located inside the source code root folder.
-7. Browse the Doctor's Appointment Systsem in a browser. i.e. http://localhost/edoc-echanneling-main/.
+### Quick Start
 
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-repo/medibook-ghana.git
+   cd medibook-ghana
+   ```
 
-## Screenshots
+2. **Database Setup**
+   - Create a MySQL database named `edoc`
+   - Import the database schema
+   - Run the Ghana-specific updates:
+   ```sql
+   mysql -u root -p edoc < ghana_database_update.sql
+   ```
 
-| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(1).png) | ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(2).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(3).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(4).png)|
-|--------------| --------------|   --------------|  --------------|    
-|  ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(5).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(6).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(7).png)| ![](https://github.com/hshnudr/edoc-echanneling/blob/main/Screenshots/Screenshot%20(8).png)|
+3. **Configure Database Connection**
+   - Update `connection.php` with your database credentials
+   - Default configuration uses port 3307 for MAMP
 
-# The Project was developed using the following:
+4. **Start the Application**
+   ```bash
+   php -S localhost:8000
+   ```
 
-Apache Version: 	`2.4.39`
+5. **Access the Application**
+   - Open your browser and navigate to `http://localhost:8000`
 
-PHP Version: 		`7.3.5`
+## Default Login Credentials
 
-Server Software: 	`Apache/2.4.39 (Win64) PHP/7.3.5`
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@medibookghana.com | 123 |
+| Doctor | doctor@medibookghana.com | 123 |
+| Patient | patient@medibookghana.com | 123 |
 
-MySQL Version: 		`5.7.26`
+## Ghana-Specific Features
 
-Demo video: https://youtu.be/mAWHYAHmit4
+### Healthcare Network
+- Coverage across major Ghanaian cities
+- Support for local medical specialties
+- Integration with Ghana's healthcare system
+- Localized medical terminology
 
+### Medical Specialties
+- General Practice & Family Medicine
+- Tropical Medicine & Infectious Diseases
+- Malaria & Tropical Diseases
+- Maternal & Child Health
+- Community Health
+- Traditional Medicine Integration
 
+### Localized Content
+- Ghanaian doctor and patient names
+- Local addresses and contact information
+- Ghana-specific medical specialties
+- Cultural considerations in healthcare delivery
 
+## Database Schema
+
+The system uses the following main tables:
+- `admin` - System administrators
+- `doctor` - Doctor profiles and credentials
+- `patient` - Patient information and records
+- `appointment` - Booking records
+- `schedule` - Doctor availability and sessions
+- `specialties` - Medical specialties (including Ghana-specific ones)
+- `webuser` - User type mapping and authentication
+
+## Security Features
+
+- Session-based authentication
+- Role-based access control
+- Input validation and sanitization
+- Secure database connections
+- Password protection for all user accounts
+
+## Contributing
+
+We welcome contributions to improve MediBook Ghana. Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For support and questions:
+- Email: support@medibookghana.com
+- Documentation: [Link to documentation]
+- Issues: [GitHub Issues Page]
+
+## Acknowledgments
+
+- Built for Ghana's healthcare system
+- Inspired by the need for accessible healthcare technology
+- Designed with local healthcare providers and patients in mind
+
+---
+
+**MediBook Ghana** - Empowering healthcare across Ghana 🇬🇭

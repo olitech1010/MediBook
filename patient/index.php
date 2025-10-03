@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/main.css">  
     <link rel="stylesheet" href="../css/admin.css">
         
-    <title>Dashboard</title>
+    <title>Patient Dashboard - MediBook Ghana</title>
     <style>
         .dashbord-tables{
             animation: transitionIn-Y-over 0.5s;
@@ -158,12 +158,9 @@
                     <table class="filter-container doctor-header patient-header" style="border: none;width:95%" border="0" >
                     <tr>
                         <td >
-                            <h3>Welcome!</h3>
-                            <h1><?php echo $username  ?>.</h1>
-                            <p>Haven't any idea about doctors? no problem let's jumping to 
-                                <a href="doctors.php" class="non-style-link"><b>"All Doctors"</b></a> section or 
-                                <a href="schedule.php" class="non-style-link"><b>"Sessions"</b> </a><br>
-                                Track your past and future appointments history.<br>Also find out the expected arrival time of your doctor or medical consultant.<br><br>
+                            <h3>Welcome, <?php echo $username  ?>!</h3>
+                            <h1>Your Health Journey Starts Here</h1>
+                            <p>Access quality healthcare across Ghana. Browse our network of qualified doctors in Accra, Kumasi, Tamale, and other cities. Book appointments, track your medical history, and manage your health records all in one place.<br><br>
                             </p>
                             
                             <h3>Channel a Doctor Here</h3>

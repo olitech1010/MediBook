@@ -7,64 +7,402 @@
     <link rel="stylesheet" href="css/animations.css">  
     <link rel="stylesheet" href="css/main.css">  
     <link rel="stylesheet" href="css/index.css">
-    <title>eDoc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>MediBook Ghana - Healthcare Made Simple</title>
     <style>
-        table{
-            animation: transitionIn-Y-bottom 0.5s;
+        .hero-section {
+            background: url('img/bg01.jpg') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .logo-main {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e8f4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-subtitle {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+        
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .hero-description {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .btn-hero {
+            font-family: 'Outfit', sans-serif;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-hero:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary-hero {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-primary-hero:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary-hero {
+            background: white;
+            color: #0A76D8;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary-hero:hover {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+        
+        .features-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .feature-card-1 {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .feature-card-1::before {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .feature-card-2 {
+            background: linear-gradient(135deg, #007bff, #6610f2);
+        }
+        
+        .feature-card-2::before {
+            background: linear-gradient(135deg, #007bff, #6610f2);
+        }
+        
+        .feature-card-3 {
+            background: linear-gradient(135deg, #6f42c1, #e83e8c);
+        }
+        
+        .feature-card-3::before {
+            background: linear-gradient(135deg, #6f42c1, #e83e8c);
+        }
+        
+        .feature-card-4 {
+            background: linear-gradient(135deg, #fd7e14, #dc3545);
+        }
+        
+        .feature-card-4::before {
+            background: linear-gradient(135deg, #fd7e14, #dc3545);
+        }
+        
+        .feature-card-5 {
+            background: linear-gradient(135deg, #17a2b8, #6f42c1);
+        }
+        
+        .feature-card-5::before {
+            background: linear-gradient(135deg, #17a2b8, #6f42c1);
+        }
+        
+        .feature-card-6 {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .feature-card-6::before {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-description {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-section {
+            font-family: 'Outfit', sans-serif;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .logo-main {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-hero {
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
-        
 </head>
 <body>
-    
-    <div class="full-height">
-        <center>
-        <table border="0">
-            <tr>
-                <td width="80%">
-                    <font class="edoc-logo">eDoc. </font>
-                    <font class="edoc-logo-sub">| THE ECHANNELING PROJECT</font>
-                </td>
-                <td width="10%">
-                   <a href="login.php"  class="non-style-link"><p class="nav-item">LOGIN</p></a>
-                </td>
-                <td  width="10%">
-                    <a href="signup.php" class="non-style-link"><p class="nav-item" style="padding-right: 10px;">REGISTER</p></a>
-                </td>
-            </tr>
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="logo-container">
+                <h1 class="logo-main">MediBook Ghana</h1>
+                <p class="logo-subtitle">Healthcare Made Simple</p>
+            </div>
             
-            <tr>
-                <td  colspan="3">
-                    <p class="heading-text">Avoid Hassles & Delays.</p>
-
-                </td>
-            </tr>
-            <tr>
-                <td  colspan="3">
-                    <p class="sub-text2">How is health today, Sounds like not good!<br>Don't worry. Find your doctor online Book as you wish with eDoc. <br>
-                    We offer you a free doctor channeling service, Make your appointment now.</p>
-                </td>
-            </tr>
-            <tr>
-                
-                <td colspan="3">
-                    <center>
-                    <a href="login.php" >
-                        <input type="button" value="Make Appointment" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
-                    </a>
-                </center>
-                </td>
-                
-            </tr>
-            <tr>
-                <td colspan="3">
-                   
-                </td>
-            </tr>
-        </table>
-        <p class="sub-text2 footer-hashen">A Web Solution by Hashen.</p>
-    </center>
+            <h2 class="hero-title">Quality Healthcare at Your Fingertips</h2>
+            
+            <p class="hero-description">
+                Connect with qualified doctors across Ghana. Book appointments, manage your health records, 
+                and access quality healthcare services from anywhere in the country. 
+                Your health journey starts here.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="login.php" class="btn-hero btn-primary-hero">
+                    Book Appointment
+                </a>
+                <a href="signup.php" class="btn-hero btn-secondary-hero">
+                    Create Account
+                </a>
+            </div>
+        </div>
+    </div>
     
+    <div class="features-section">
+        <div class="features-grid">
+            <div class="feature-card feature-card-1" style="animation-delay: 0.1s;">
+                <div class="feature-icon"><i class="fas fa-hospital"></i></div>
+                <h3 class="feature-title">Trusted Healthcare</h3>
+                <p class="feature-description">
+                    Access to verified doctors and healthcare facilities across Ghana's major cities including Accra, Kumasi, and Tamale.
+                </p>
+            </div>
+            
+            <div class="feature-card feature-card-2" style="animation-delay: 0.2s;">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3 class="feature-title">Easy Booking</h3>
+                <p class="feature-description">
+                    Simple and intuitive appointment booking system. Find available slots and book your consultation in minutes.
+                </p>
+            </div>
+            
+            <div class="feature-card feature-card-3" style="animation-delay: 0.3s;">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3 class="feature-title">24/7 Access</h3>
+                <p class="feature-description">
+                    Manage your appointments and health records anytime, anywhere. Our platform is always available for your convenience.
+                </p>
+            </div>
+            
+            <div class="feature-card feature-card-4" style="animation-delay: 0.4s;">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="feature-title">Secure & Private</h3>
+                <p class="feature-description">
+                    Your health data is protected with industry-standard security measures. Privacy and confidentiality guaranteed.
+                </p>
+            </div>
+            
+            <div class="feature-card feature-card-5" style="animation-delay: 0.5s;">
+                <div class="feature-icon"><i class="fas fa-user-md"></i></div>
+                <h3 class="feature-title">Specialized Care</h3>
+                <p class="feature-description">
+                    Find specialists in various fields including cardiology, pediatrics, gynecology, and general medicine.
+                </p>
+            </div>
+            
+            <div class="feature-card feature-card-6" style="animation-delay: 0.6s;">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 class="feature-title">Health Tracking</h3>
+                <p class="feature-description">
+                    Keep track of your medical history, appointments, and health progress all in one secure platform.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-section">
+        <p>&copy; 2025 MediBook Ghana. Empowering healthcare across Ghana.</p>
     </div>
 </body>
 </html>
