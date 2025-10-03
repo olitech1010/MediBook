@@ -46,7 +46,7 @@ This system facilitates seamless online appointment booking for patients seeking
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-repo/medibook-ghana.git
+   git clone https://github.com/olitech1010/MediBook.git
    cd medibook-ghana
    ```
 
