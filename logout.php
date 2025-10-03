@@ -1,16 +1,19 @@
 <?php 
+// Start the session
+session_start();
 
-	session_start();
+// Clear the session data
+$_SESSION = array();
 
-	$_SESSION = array();
+// Check if the session cookie exists and delete it
+if (isset($_COOKIE[session_name()])) {
+    setcookie(session_name(), '', time() - 86400, '/', '', true, true); // Secure and HttpOnly flags
+}
 
-	if (isset($_COOKIE[session_name()])) {
-		setcookie(session_name(), '', time()-86400, '/');
-	}
+// Destroy the session
+session_destroy();
 
-	session_destroy();
-
-	// redirecting the user to the login page
-	header('Location: login.php?action=logout');
-
- ?>
+// Redirect to the login page with a logout action
+header('Location: login.php?action=logout');
+exit(); // Ensure no further code is executed
+?>
