@@ -182,7 +182,7 @@
                 <?php
 
 
-                    $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  doctor.docid=$userid ";
+                    $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate,appointment.appointment_type from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  doctor.docid=$userid ";
 
                     if($_POST){
                         //print_r($_POST);
@@ -241,6 +241,18 @@
                                 
                                 <th class="table-headin">
                                     
+                                    Appointment Type
+                                    
+                                </th>
+                                
+                                <th class="table-headin">
+                                    
+                                    Appointment Type
+                                    
+                                </th>
+                                
+                                <th class="table-headin">
+                                    
                                     Events
                                     
                                 </tr>
@@ -281,6 +293,7 @@
                                     $pname=$row["pname"];
                                     $apponum=$row["apponum"];
                                     $appodate=$row["appodate"];
+                                    $appointment_type = isset($row["appointment_type"]) ? $row["appointment_type"] : "face-to-face";
                                     echo '<tr >
                                         <td style="font-weight:600;"> &nbsp;'.
                                         
@@ -299,6 +312,10 @@
                                         
                                         <td style="text-align:center;">
                                             '.$appodate.'
+                                        </td>
+                                        
+                                        <td style="text-align:center;">
+                                            '.$appointment_type.'
                                         </td>
 
                                         <td>

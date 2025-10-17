@@ -248,6 +248,13 @@
                                                         </div><br><br>
                                                         <div class="h3-search" style="font-size:18px;line-height:30px">
                                                             Doctor name:  &nbsp;&nbsp;<b>'.$docname.'</b><br>
+                                                            <div style="margin-top: 15px;">
+                                                                <span>Appointment Type:</span><br>
+                                                                <input type="radio" id="face-to-face" name="appointment_type" value="face-to-face" checked> 
+                                                                <label for="face-to-face">Face-to-face</label>&nbsp;&nbsp;
+                                                                <input type="radio" id="online" name="appointment_type" value="online"> 
+                                                                <label for="online">Online</label>
+                                                            </div><br>
                                                             Doctor Email:  &nbsp;&nbsp;<b>'.$docemail.'</b> 
                                                         </div>
                                                         <div class="h3-search" style="font-size:18px;">

@@ -33,10 +33,14 @@
             $apponum=$_POST["apponum"];
             $scheduleid=$_POST["scheduleid"];
             $date=$_POST["date"];
-            $scheduleid=$_POST["scheduleid"];
-            $sql2="insert into appointment(pid,apponum,scheduleid,appodate) values ($userid,$apponum,$scheduleid,'$date')";
-            $result= $database->query($sql2);
-            //echo $apponom;
+            $appointment_type=$_POST["appointment_type"];
+            
+            // Using prepared statement for better security
+            $sql2="insert into appointment(pid,apponum,scheduleid,appodate,appointment_type) values (?,?,?,?,?)";
+            $stmt = $database->prepare($sql2);
+            $stmt->bind_param("iiiss", $userid, $apponum, $scheduleid, $date, $appointment_type);
+            $stmt->execute();
+            
             header("location: appointment.php?action=booking-added&id=".$apponum."&titleget=none");
 
         }

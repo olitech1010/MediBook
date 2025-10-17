@@ -90,118 +90,155 @@
             }
             
             .input-text {
-                font-size: 16px; /* Prevents zoom on iOS */
+                font-size: 16px;
             }
         }
     </style>
-
-    
-    
 </head>
 <body>
     <?php
-
-    //learn from w3schools.com
-    //Unset all the server side variables
-
+    // Start session
     session_start();
 
-    $_SESSION["user"]="";
-    $_SESSION["usertype"]="";
+    // Unset all the server side variables
+    $_SESSION["user"] = "";
+    $_SESSION["usertype"] = "";
     
     // Set the new timezone
     date_default_timezone_set('Asia/Kolkata');
     $date = date('Y-m-d');
-
-    $_SESSION["date"]=$date;
+    $_SESSION["date"] = $date;
     
-
-    //import database
+    // Import database
     include("connection.php");
+    include("password_utils.php");
 
-    
-
-
+    // Initialize error variable
+    $error = '<label for="promter" class="form-label">&nbsp;</label>';
 
     if($_POST){
-
-        $email=$_POST['useremail'];
-        $password=$_POST['userpassword'];
+        $email = $_POST['useremail'];
+        $password = $_POST['userpassword'];
         
-        $error='<label for="promter" class="form-label"></label>';
+        $error = '<label for="promter" class="form-label"></label>';
 
-        $result= $database->query("select * from webuser where email='$email'");
-        if($result->num_rows==1){
-            $utype=$result->fetch_assoc()['usertype'];
-            if ($utype=='p'){
-                //TODO
-                $checker = $database->query("select * from patient where pemail='$email' and ppassword='$password'");
-                if ($checker->num_rows==1){
-
-
-                    //   Patient dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='p';
+        // Use prepared statements to prevent SQL injection
+        $stmt = $database->prepare("SELECT * FROM webuser WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if($result->num_rows == 1){
+            $utype = $result->fetch_assoc()['usertype'];
+            
+            if ($utype == 'p'){
+                // Patient login
+                $stmt = $database->prepare("SELECT * FROM patient WHERE pemail=?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $checker = $stmt->get_result();
+                
+                if ($checker->num_rows == 1){
+                    $patient = $checker->fetch_assoc();
+                    $storedHash = $patient['ppassword'];
                     
-                    header('location: patient/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    // Verify password (support both hashed and legacy passwords)
+                    if (verifyPassword($password, $storedHash) || $storedHash === $password){
+                        // Patient dashboard
+                        $_SESSION['user'] = $email;
+                        $_SESSION['usertype'] = 'p';
+                        
+                        // If using legacy password, update to hashed version
+                        if ($storedHash === $password) {
+                            $hashedPassword = hashPassword($password);
+                            $updateStmt = $database->prepare("UPDATE patient SET ppassword=? WHERE pemail=?");
+                            $updateStmt->bind_param("ss", $hashedPassword, $email);
+                            $updateStmt->execute();
+                        }
+                        
+                        header('location: patient/index.php');
+                        exit();
+                    } else {
+                        $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    }
+                } else {
+                    $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
                 }
 
-            }elseif($utype=='a'){
-                //TODO
-                $checker = $database->query("select * from admin where aemail='$email' and apassword='$password'");
-                if ($checker->num_rows==1){
-
-
-                    //   Admin dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='a';
+            } elseif($utype == 'a'){
+                // Admin login
+                $stmt = $database->prepare("SELECT * FROM admin WHERE aemail=?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $checker = $stmt->get_result();
+                
+                if ($checker->num_rows == 1){
+                    $admin = $checker->fetch_assoc();
+                    $storedHash = $admin['apassword'];
                     
-                    header('location: admin/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    // Verify password
+                    if (verifyPassword($password, $storedHash) || $storedHash === $password){
+                        // Admin dashboard
+                        $_SESSION['user'] = $email;
+                        $_SESSION['usertype'] = 'a';
+                        
+                        // If using legacy password, update to hashed version
+                        if ($storedHash === $password) {
+                            $hashedPassword = hashPassword($password);
+                            $updateStmt = $database->prepare("UPDATE admin SET apassword=? WHERE aemail=?");
+                            $updateStmt->bind_param("ss", $hashedPassword, $email);
+                            $updateStmt->execute();
+                        }
+                        
+                        header('location: admin/index.php');
+                        exit();
+                    } else {
+                        $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    }
+                } else {
+                    $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
                 }
 
-
-            }elseif($utype=='d'){
-                //TODO
-                $checker = $database->query("select * from doctor where docemail='$email' and docpassword='$password'");
-                if ($checker->num_rows==1){
-
-
-                    //   doctor dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='d';
-                    header('location: doctor/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+            } elseif($utype == 'd'){
+                // Doctor login
+                $stmt = $database->prepare("SELECT * FROM doctor WHERE docemail=?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $checker = $stmt->get_result();
+                
+                if ($checker->num_rows == 1){
+                    $doctor = $checker->fetch_assoc();
+                    $storedHash = $doctor['docpassword'];
+                    
+                    // Verify password
+                    if (verifyPassword($password, $storedHash) || $storedHash === $password){
+                        // Doctor dashboard
+                        $_SESSION['user'] = $email;
+                        $_SESSION['usertype'] = 'd';
+                        
+                        // If using legacy password, update to hashed version
+                        if ($storedHash === $password) {
+                            $hashedPassword = hashPassword($password);
+                            $updateStmt = $database->prepare("UPDATE doctor SET docpassword=? WHERE docemail=?");
+                            $updateStmt->bind_param("ss", $hashedPassword, $email);
+                            $updateStmt->execute();
+                        }
+                        
+                        header('location: doctor/index.php');
+                        exit();
+                    } else {
+                        $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                    }
+                } else {
+                    $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
                 }
-
             }
             
-        }else{
-            $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant found any acount for this email.</label>';
+        } else {
+            $error = '<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We can\'t find any account for this email.</label>';
         }
-
-
-
-
-
-
-        
-    }else{
-        $error='<label for="promter" class="form-label">&nbsp;</label>';
     }
-
     ?>
-
-
-
-
 
     <div class="back-to-home">
         <a href="index.html">
@@ -218,48 +255,49 @@
                     <p class="header-text">Welcome to MediBook Ghana</p>
                 </td>
             </tr>
-        <div class="form-body">
             <tr>
                 <td>
                     <p class="sub-text">Sign in to access your healthcare dashboard</p>
                 </td>
             </tr>
             <tr>
-                <form action="" method="POST" >
-                <td class="label-td">
-                    <label for="useremail" class="form-label">Email: </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td">
-                    <input type="email" name="useremail" class="input-text" placeholder="Email Address" required>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td">
-                    <label for="userpassword" class="form-label">Password: </label>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="label-td">
-                    <input type="Password" name="userpassword" class="input-text" placeholder="Password" required>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td><br>
-                <?php echo $error ?>
-                </td>
-            </tr>
-
-            <tr>
                 <td>
-                    <input type="submit" value="Login" class="login-btn btn-primary btn">
+                    <form action="" method="POST">
+                        <table border="0" style="width: 100%;">
+                            <tr>
+                                <td class="label-td">
+                                    <label for="useremail" class="form-label">Email: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">
+                                    <input type="email" name="useremail" class="input-text" placeholder="Email Address" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">
+                                    <label for="userpassword" class="form-label">Password: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">
+                                    <input type="password" name="userpassword" class="input-text" placeholder="Password" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br>
+                                <?php echo $error ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="submit" value="Login" class="login-btn btn-primary btn">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 </td>
             </tr>
-        </div>
             <tr>
                 <td>
                     <br>
@@ -268,14 +306,8 @@
                     <br><br><br>
                 </td>
             </tr>
-                        
-                        
-    
-                        
-                    </form>
         </table>
-
     </div>
-</center>
+    </center>
 </body>
 </html>

@@ -213,7 +213,7 @@
                         }
                         //echo $sqlpt2;
                         //echo $sqlpt1;
-                        $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid";
+                        $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate,appointment.appointment_type from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid";
                         $sqllist=array($sqlpt1,$sqlpt2);
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
@@ -230,7 +230,7 @@
                         
                         //
                     }else{
-                        $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
+                        $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate,appointment.appointment_type from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
 
                     }
 
@@ -279,6 +279,12 @@
                                 
                                 <th class="table-headin">
                                     
+                                    Appointment Type
+                                    
+                                </th>
+                                
+                                <th class="table-headin">
+                                    
                                     Events
                                     
                                 </tr>
@@ -319,6 +325,7 @@
                                     $pname=$row["pname"];
                                     $apponum=$row["apponum"];
                                     $appodate=$row["appodate"];
+                                    $appointment_type=$row["appointment_type"] ?? "face-to-face";
                                     echo '<tr >
                                         <td style="font-weight:600;"> &nbsp;'.
                                         
@@ -340,6 +347,10 @@
                                         
                                         <td style="text-align:center;">
                                             '.$appodate.'
+                                        </td>
+                                        
+                                        <td style="text-align:center;">
+                                            '.$appointment_type.'
                                         </td>
 
                                         <td>
